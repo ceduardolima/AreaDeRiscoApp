@@ -29,12 +29,14 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         init();
-        if(hasExternalStoragePrivateFile("CHAMADOS.json")) {
-            beginDownload1();
+        if(hasExternalStoragePrivateFile("CHAMADOS.json")==true) {
+            deleteExternalStoragePrivateFile("CHAMADOS.json");
         }
-        if(hasExternalStoragePrivateFile("TIPOS.json")) {
-            beginDownload2();
+        beginDownload1();
+        if(hasExternalStoragePrivateFile("TIPOS.json")==true) {
+            deleteExternalStoragePrivateFile("TIPOS.json");
         }
+        beginDownload2();
     }
 
 
@@ -88,7 +90,5 @@ public class MainActivity extends AppCompatActivity {
     @Override
     public void onDestroy() {
         super.onDestroy();
-        deleteExternalStoragePrivateFile("CHAMADOS.json");
-        deleteExternalStoragePrivateFile("TIPOS.json");
     }
 }
