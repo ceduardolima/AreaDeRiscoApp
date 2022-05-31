@@ -29,22 +29,25 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         init();
-        beginDownload1();
-        beginDownload2();
-
+        if(hasExternalStoragePrivateFile("CHAMADOS.json")) {
+            beginDownload1();
+        }
+        if(hasExternalStoragePrivateFile("TIPOS.json")) {
+            beginDownload2();
+        }
     }
 
 
     private void init(){
         /* Inicia os componentes da activity */
-
         // inicializando componentes do mapa
         places = new ArrayList<>();
         mapFragment = (SupportMapFragment) getSupportFragmentManager().findFragmentById(R.id.map_fragment);
     }
     @RequiresApi(api = Build.VERSION_CODES.N)
     private void beginDownload1(){
-        File file = new File(getExternalFilesDir(null),"CHAMADOS");
+        //metodo para baixar json (SEDEC Chamados)
+        File file = new File(getExternalFilesDir(null),"CHAMADOS.json");
         DownloadManager.Request request = new DownloadManager.Request(Uri.parse("" +
                 "http://dados.recife.pe.gov.br/datastore/dump/5eaed1e8-aa7f-48d7-9512-638f80874870?format=json"))
                 .setTitle("CHAMADOS")
@@ -58,7 +61,8 @@ public class MainActivity extends AppCompatActivity {
     }
     @RequiresApi(api = Build.VERSION_CODES.N)
     private void beginDownload2(){
-        File file = new File(getExternalFilesDir(null),"TIPOS");
+        //metodo para baixar json (Tipos de ocorrencia)
+        File file = new File(getExternalFilesDir(null),"TIPOS.json");
         DownloadManager.Request request = new DownloadManager.Request(Uri.parse("" +
                 "http://dados.recife.pe.gov.br/datastore/dump/7a22d871-250e-419a-9b5a-1cab19db7be5?format=json"))
                 .setTitle("TIPOS")
@@ -69,5 +73,22 @@ public class MainActivity extends AppCompatActivity {
                 .setAllowedOverRoaming(true);
         DownloadManager downloadManager = (DownloadManager) getSystemService(DOWNLOAD_SERVICE);
         downloadId2=downloadManager.enqueue(request);
+    }
+    void deleteExternalStoragePrivateFile(String s) {
+        // deletador dado o nome s do arquivo a ser deletador
+        File file = new File(getExternalFilesDir(null), s);
+        file.delete();
+    }
+    boolean hasExternalStoragePrivateFile(String s) {
+        //pergunta existencia de arquivo com dado nome s
+        File file = new File(getExternalFilesDir(null), s);
+        return file.exists();
+    }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        deleteExternalStoragePrivateFile("CHAMADOS.json");
+        deleteExternalStoragePrivateFile("TIPOS.json");
     }
 }
