@@ -7,8 +7,10 @@ import androidx.annotation.RequiresApi;
 import androidx.core.content.ContextCompat;
 
 import com.example.areaderiscoapp.R;
+import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.SupportMapFragment;
+import com.google.android.gms.maps.model.LatLngBounds;
 import com.google.android.gms.maps.model.MarkerOptions;
 import java.util.ArrayList;
 
@@ -18,6 +20,7 @@ public class MapManager {
     private SupportMapFragment mapFragment;
     private ArrayList<Place> places;
     private Context context;
+    private ArrayList<Place> neighborhood;
 
     public MapManager(Context context, SupportMapFragment mapFragment, ArrayList<Place> places){
         this.mapFragment = mapFragment;
@@ -27,8 +30,9 @@ public class MapManager {
 
     @RequiresApi(api = Build.VERSION_CODES.N)
     public void createMap(){
-        mapFragment.getMapAsync(v -> {
-            addMarkers(v);
+        mapFragment.getMapAsync(googleMap -> {
+            addMarkers(googleMap);
+            setMapInitialLimit(googleMap);
         }
         );
     }
@@ -50,8 +54,28 @@ public class MapManager {
         ));
     }
 
+    @RequiresApi(api = Build.VERSION_CODES.N)
+    private void setMapInitialLimit(GoogleMap googleMap) {
+        ArrayList<Place> buff;
+
+        if(this.neighborhood == null) buff = this.places;
+        else buff = this.neighborhood;
+
+        googleMap.setOnMapLoadedCallback(() -> {
+            LatLngBounds.Builder bounds = LatLngBounds.builder();
+            buff.forEach(place -> bounds.include(place.getPosition()));
+            googleMap.moveCamera(CameraUpdateFactory.newLatLngBounds(bounds.build(), 100));
+        });
+
+    }
+
+    public void setNeighborhood(ArrayList<Place> neighborhood) {
+        this.neighborhood = neighborhood;
+    }
+
     public void addPlace(Place place) {
         /* Adiciona um novo local no places */
         this.places.add(place);
     }
+
 }
