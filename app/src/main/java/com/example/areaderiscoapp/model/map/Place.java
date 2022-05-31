@@ -1,8 +1,8 @@
-package com.example.areaderiscoapp.model;
+package com.example.areaderiscoapp.model.map;
 
 import com.google.android.gms.maps.model.LatLng;
 
-class Place {
+public class Place {
     /* Classe usada para armazenar os dados de cada local */
 
     String problem; // Armazena o tipo do problema
