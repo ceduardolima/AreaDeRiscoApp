@@ -3,6 +3,8 @@ package com.example.areaderiscoapp;
 import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.app.DownloadManager;
+import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 
@@ -12,11 +14,14 @@ import com.example.areaderiscoapp.model.map.Place;
 import com.google.android.gms.maps.SupportMapFragment;
 
 
+import java.io.File;
 import java.util.ArrayList;
 
 public class MainActivity extends AppCompatActivity {
     private SupportMapFragment mapFragment;
     private ArrayList<Place> places;
+    Long downloadId1;
+    Long downloadId2;
 
     @RequiresApi(api = Build.VERSION_CODES.N)
     @Override
@@ -24,6 +29,8 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         init();
+        beginDownload1();
+        beginDownload2();
 
     }
 
@@ -34,5 +41,33 @@ public class MainActivity extends AppCompatActivity {
         // inicializando componentes do mapa
         places = new ArrayList<>();
         mapFragment = (SupportMapFragment) getSupportFragmentManager().findFragmentById(R.id.map_fragment);
+    }
+    @RequiresApi(api = Build.VERSION_CODES.N)
+    private void beginDownload1(){
+        File file = new File(getExternalFilesDir(null),"CHAMADOS");
+        DownloadManager.Request request = new DownloadManager.Request(Uri.parse("" +
+                "http://dados.recife.pe.gov.br/datastore/dump/5eaed1e8-aa7f-48d7-9512-638f80874870?format=json"))
+                .setTitle("CHAMADOS")
+                .setNotificationVisibility(DownloadManager.Request.VISIBILITY_VISIBLE)
+                .setDestinationUri(Uri.fromFile(file))
+                .setRequiresCharging(false)
+                .setAllowedOverMetered(true)
+                .setAllowedOverRoaming(true);
+        DownloadManager downloadManager = (DownloadManager) getSystemService(DOWNLOAD_SERVICE);
+        downloadId1=downloadManager.enqueue(request);
+    }
+    @RequiresApi(api = Build.VERSION_CODES.N)
+    private void beginDownload2(){
+        File file = new File(getExternalFilesDir(null),"TIPOS");
+        DownloadManager.Request request = new DownloadManager.Request(Uri.parse("" +
+                "http://dados.recife.pe.gov.br/datastore/dump/7a22d871-250e-419a-9b5a-1cab19db7be5?format=json"))
+                .setTitle("TIPOS")
+                .setNotificationVisibility(DownloadManager.Request.VISIBILITY_VISIBLE)
+                .setDestinationUri(Uri.fromFile(file))
+                .setRequiresCharging(false)
+                .setAllowedOverMetered(true)
+                .setAllowedOverRoaming(true);
+        DownloadManager downloadManager = (DownloadManager) getSystemService(DOWNLOAD_SERVICE);
+        downloadId2=downloadManager.enqueue(request);
     }
 }
