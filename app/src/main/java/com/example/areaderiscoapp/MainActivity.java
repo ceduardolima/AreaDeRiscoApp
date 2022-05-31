@@ -39,13 +39,13 @@ public class MainActivity extends AppCompatActivity {
         beginDownload2();
     }
 
-
     private void init(){
         /* Inicia os componentes da activity */
         // inicializando componentes do mapa
         places = new ArrayList<>();
         mapFragment = (SupportMapFragment) getSupportFragmentManager().findFragmentById(R.id.map_fragment);
     }
+
     @RequiresApi(api = Build.VERSION_CODES.N)
     private void beginDownload1(){
         //metodo para baixar json (SEDEC Chamados)
@@ -61,6 +61,7 @@ public class MainActivity extends AppCompatActivity {
         DownloadManager downloadManager = (DownloadManager) getSystemService(DOWNLOAD_SERVICE);
         downloadId1=downloadManager.enqueue(request);
     }
+
     @RequiresApi(api = Build.VERSION_CODES.N)
     private void beginDownload2(){
         //metodo para baixar json (Tipos de ocorrencia)
@@ -76,11 +77,13 @@ public class MainActivity extends AppCompatActivity {
         DownloadManager downloadManager = (DownloadManager) getSystemService(DOWNLOAD_SERVICE);
         downloadId2=downloadManager.enqueue(request);
     }
+
     void deleteExternalStoragePrivateFile(String s) {
         // deletador dado o nome s do arquivo a ser deletador
         File file = new File(getExternalFilesDir(null), s);
         file.delete();
     }
+
     boolean hasExternalStoragePrivateFile(String s) {
         //pergunta existencia de arquivo com dado nome s
         File file = new File(getExternalFilesDir(null), s);
