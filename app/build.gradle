@@ -1,6 +1,10 @@
 plugins {
     id 'com.android.application'
+<<<<<<< HEAD
     id 'com.google.android.libraries.mapsplatform.secrets-gradle-plugin' version '2.0.1' apply false
+=======
+    id 'com.google.android.libraries.mapsplatform.secrets-gradle-plugin'
+>>>>>>> a456c078221bbbd66cb70c0c8c4265db42b62090
 }
 
 android {
@@ -33,7 +37,12 @@ dependencies {
     implementation 'androidx.appcompat:appcompat:1.4.1'
     implementation 'com.google.android.material:material:1.6.0'
     implementation 'androidx.constraintlayout:constraintlayout:2.1.4'
+<<<<<<< HEAD
     implementation 'com.google.android.gms:play-services-maps:17.0.1'
+=======
+    implementation 'com.google.android.gms:play-services-maps:18.0.2'
+
+>>>>>>> a456c078221bbbd66cb70c0c8c4265db42b62090
     testImplementation 'junit:junit:4.13.2'
     androidTestImplementation 'androidx.test.ext:junit:1.1.3'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.4.0'
