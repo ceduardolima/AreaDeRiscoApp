@@ -9,6 +9,7 @@ import android.os.Build;
 import android.os.Bundle;
 
 
+import com.example.areaderiscoapp.json_java.JsonReader;
 import com.example.areaderiscoapp.model.map.Place;
 
 import com.google.android.gms.maps.SupportMapFragment;
@@ -37,6 +38,18 @@ public class MainActivity extends AppCompatActivity {
             deleteExternalStoragePrivateFile("TIPOS.json");
         }
         beginDownload2();
+        try {
+            Thread.sleep(4000);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+        try {
+            if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.O) {
+                JsonReader reader = new JsonReader(getExternalFilesDir(null),"CHAMADOS.json");
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
     private void init(){
