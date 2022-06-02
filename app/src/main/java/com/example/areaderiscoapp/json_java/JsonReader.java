@@ -12,6 +12,7 @@ import java.io.FileReader;
 public class JsonReader {
     File arquivo;
     String s;
+    String data;
     @RequiresApi(api = Build.VERSION_CODES.O)
     public JsonReader(File externalFilesDir, String s) throws Exception {
         this.arquivo=externalFilesDir;
@@ -21,5 +22,6 @@ public class JsonReader {
         FileReader fr= null;
         fr = new FileReader(path);
         String data = ReadTextAsString.readFileAsString(path);
+        this.data=data;
     }
 }
