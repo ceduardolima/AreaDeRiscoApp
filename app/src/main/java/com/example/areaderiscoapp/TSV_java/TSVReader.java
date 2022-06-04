@@ -19,4 +19,11 @@ public class TSVReader {
         this.s=s;
         this.data= ReadTSVAsClassChamado.readFileAsList(path);
     }
+    public ArrayList<Chamado> getData() {
+        return data;
+    }
+
+    public void setData(ArrayList<Chamado> data) {
+        this.data = data;
+    }
 }

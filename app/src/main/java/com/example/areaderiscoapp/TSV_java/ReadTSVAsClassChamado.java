@@ -19,7 +19,7 @@ public class ReadTSVAsClassChamado {
         while(sc.hasNext()){
             String[] str = sc.nextLine().split("\t");
             if(str[1].equals("2022") && str[2].equals("05-maio")
-                    && str[6].toLowerCase().contains("alagamento")
+                    && str[6].toLowerCase().contains("alaga")
              ){
                 Chamado chamada = new Chamado(Integer.parseInt(str[0])
                         ,Integer.parseInt(str[1]),str[2],str[3]
