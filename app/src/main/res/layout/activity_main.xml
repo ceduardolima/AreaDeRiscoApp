@@ -42,15 +42,14 @@
 
     <EditText
         android:id="@+id/txt_pesquisa"
-        android:layout_width="300dp"
-        android:layout_height="wrap_content"
+        android:layout_width="327dp"
+        android:layout_height="62dp"
         android:layout_marginTop="20dp"
-        android:background="@color/white"
-        android:drawableStart="@drawable/ic_danger"
+        android:background="@drawable/common_google_signin_btn_text_light_normal_background"
+        android:drawableLeft="@drawable/ic_launcher_foreground"
         android:ems="10"
-        android:gravity="center"
         android:hint="Pesquisar"
-        android:inputType="textPersonName"
+        android:inputType="textPostalAddress"
         android:minHeight="48dp"
         android:textSize="20sp"
         android:textStyle="bold"
@@ -91,5 +90,19 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="@+id/map_fragment"
         app:srcCompat="@android:drawable/ic_menu_help" />
+
+    <Switch
+        android:id="@+id/bt_switch"
+        android:layout_width="176dp"
+        android:layout_height="44dp"
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="10dp"
+        android:background="@drawable/common_google_signin_btn_text_light_focused"
+        android:gravity="center"
+        android:text="Zonas Perigosas"
+        android:textColor="#000000"
+        android:textStyle="bold"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/txt_pesquisa" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
