@@ -9,7 +9,7 @@ import android.os.Build;
 import android.os.Bundle;
 
 
-import com.example.areaderiscoapp.json_java.JsonReader;
+import com.example.areaderiscoapp.TSV_java.TSVReader;
 import com.example.areaderiscoapp.model.map.Place;
 
 import com.google.android.gms.maps.SupportMapFragment;
@@ -30,22 +30,25 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         init();
-        if(hasExternalStoragePrivateFile("CHAMADOS.json")==true) {
-            deleteExternalStoragePrivateFile("CHAMADOS.json");
+        if(hasExternalStoragePrivateFile("CHAMADOS")) {
+         //   deleteExternalStoragePrivateFile("CHAMADOS");
+        } else {
+            beginDownload1();
         }
-        beginDownload1();
-        if(hasExternalStoragePrivateFile("TIPOS.json")==true) {
-            deleteExternalStoragePrivateFile("TIPOS.json");
+        if(hasExternalStoragePrivateFile("TIPOS")) {
+          //  deleteExternalStoragePrivateFile("TIPOS");
+        }else {
+            beginDownload2();
         }
-        beginDownload2();
+
         try {
-            Thread.sleep(4000);
+            Thread.sleep(10000);
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
         try {
             if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.O) {
-                JsonReader reader = new JsonReader(getExternalFilesDir(null),"CHAMADOS.json");
+                TSVReader reader = new TSVReader(getExternalFilesDir(null),"CHAMADOS");
             }
         } catch (Exception e) {
             e.printStackTrace();
@@ -61,10 +64,10 @@ public class MainActivity extends AppCompatActivity {
 
     @RequiresApi(api = Build.VERSION_CODES.N)
     private void beginDownload1(){
-        //metodo para baixar json (SEDEC Chamados)
-        File file = new File(getExternalFilesDir(null),"CHAMADOS.json");
+        //metodo para baixar TSV (SEDEC Chamados)
+        File file = new File(getExternalFilesDir(null),"CHAMADOS");
         DownloadManager.Request request = new DownloadManager.Request(Uri.parse("" +
-                "http://dados.recife.pe.gov.br/datastore/dump/5eaed1e8-aa7f-48d7-9512-638f80874870?format=json"))
+                "http://dados.recife.pe.gov.br/datastore/dump/5eaed1e8-aa7f-48d7-9512-638f80874870?bom=True&format=tsv"))
                 .setTitle("CHAMADOS")
                 .setNotificationVisibility(DownloadManager.Request.VISIBILITY_VISIBLE)
                 .setDestinationUri(Uri.fromFile(file))
@@ -77,10 +80,10 @@ public class MainActivity extends AppCompatActivity {
 
     @RequiresApi(api = Build.VERSION_CODES.N)
     private void beginDownload2(){
-        //metodo para baixar json (Tipos de ocorrencia)
-        File file = new File(getExternalFilesDir(null),"TIPOS.json");
+        //metodo para baixar TSV (Tipos de ocorrencia)
+        File file = new File(getExternalFilesDir(null),"TIPOS");
         DownloadManager.Request request = new DownloadManager.Request(Uri.parse("" +
-                "http://dados.recife.pe.gov.br/datastore/dump/7a22d871-250e-419a-9b5a-1cab19db7be5?format=json"))
+                "http://dados.recife.pe.gov.br/datastore/dump/7a22d871-250e-419a-9b5a-1cab19db7be5?bom=True&format=tsv"))
                 .setTitle("TIPOS")
                 .setNotificationVisibility(DownloadManager.Request.VISIBILITY_VISIBLE)
                 .setDestinationUri(Uri.fromFile(file))
