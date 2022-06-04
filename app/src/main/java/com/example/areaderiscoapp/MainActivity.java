@@ -9,6 +9,7 @@ import android.os.Build;
 import android.os.Bundle;
 
 
+import com.example.areaderiscoapp.TSV_java.Chamado;
 import com.example.areaderiscoapp.TSV_java.TSVReader;
 import com.example.areaderiscoapp.model.map.Place;
 
@@ -21,6 +22,7 @@ import java.util.ArrayList;
 public class MainActivity extends AppCompatActivity {
     private SupportMapFragment mapFragment;
     private ArrayList<Place> places;
+    private ArrayList<Chamado> dataChamados;
     Long downloadId1;
     Long downloadId2;
 
@@ -28,40 +30,15 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
         try {
             Thread.sleep(0);
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
-
         setTheme(R.style.Theme_Splash);
-
+        initProcess();
         setContentView(R.layout.activity_main);
         init();
-        if(hasExternalStoragePrivateFile("CHAMADOS")) {
-         //   deleteExternalStoragePrivateFile("CHAMADOS");
-        } else {
-            beginDownload1();
-        }
-        if(hasExternalStoragePrivateFile("TIPOS")) {
-          //  deleteExternalStoragePrivateFile("TIPOS");
-        }else {
-            beginDownload2();
-        }
-
-        try {
-            Thread.sleep(10000);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
-        try {
-            if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.O) {
-                TSVReader reader = new TSVReader(getExternalFilesDir(null),"CHAMADOS");
-            }
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
     }
 
     private void init(){
@@ -69,6 +46,39 @@ public class MainActivity extends AppCompatActivity {
         // inicializando componentes do mapa
         places = new ArrayList<>();
         mapFragment = (SupportMapFragment) getSupportFragmentManager().findFragmentById(R.id.map_fragment);
+    }
+
+    @RequiresApi(api = Build.VERSION_CODES.N)
+    private void initProcess(){
+        if(hasExternalStoragePrivateFile("CHAMADOS")) {
+            //   deleteExternalStoragePrivateFile("CHAMADOS");
+        } else {
+            beginDownload1();
+            try {
+                Thread.sleep(9000);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+        }
+      /*  if(hasExternalStoragePrivateFile("TIPOS")) {
+            //  deleteExternalStoragePrivateFile("TIPOS");
+        }else {
+            //   beginDownload2();
+        }
+       */
+        try {
+            Thread.sleep(1000);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+        try {
+            if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.O) {
+                TSVReader reader = new TSVReader(getExternalFilesDir(null),"CHAMADOS");
+                this.dataChamados=reader.getData();
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
     @RequiresApi(api = Build.VERSION_CODES.N)
