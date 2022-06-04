@@ -18,18 +18,46 @@ import org.json.JSONObject;
 public class Geocode {
     /* Classe responsável por obter a geolocalização do endereço dado */
 
-    private String URL;
+    private String URL = "https://api.geoapify.com/v1/geocode/search?text=";
+    private String key = "9cee7b25c20a4357a418a38f81689d72";
+    private final String state = "pernambuco";
     private LatLng latLng;
-    private String street;
-    private String neighborhood;
-    private String number;
-    private Context context;
 
-    public Geocode(Context context) {
-        this.context = context;
+    public void urlBuilder(String city, String street, String houseNumber) {
+        /* função criada para construir a url */
+        String connector = "%2C%20";
+        String bufferState = this.state + connector;
+        String bufferCity = city + connector;
+        String bufferStreet = urlStreetBuilder(street, houseNumber);
+        String urlBuffer = "&lang=pt&limit=1&format=json&filter=countrycode:br&apiKey=";
+
+        this.URL = this.URL +
+                bufferState +
+                bufferCity +
+                bufferStreet +
+                urlBuffer +
+                this.key;
     }
 
-    public void request() {
+    private String urlStreetBuilder(String street, String houseNumber) {
+        /* Constroi uma parte especifica da url, a parte da 'rua' */
+        String[] string_splited = street.split(" ");
+        StringBuilder buffer = new StringBuilder();
+        String connector = "%20";
+
+        int i;
+        for (i = 0; i < string_splited.length; i++) {
+            buffer.append(string_splited[i]);
+            if(i < (string_splited.length - 1))
+                buffer.append(connector);
+        }
+        String bufferHouseNumber = "%2C%20" + houseNumber;
+        buffer.append(houseNumber);
+
+        return buffer.toString();
+    }
+
+    public LatLng request(Context context) {
         /* função responsável por fazer a requisição ao geocode api */
 
         RequestQueue requestQueue = Volley.newRequestQueue(context);
@@ -52,12 +80,13 @@ public class Geocode {
                         jsonException.printStackTrace();
                     }
                 },
-
                 (Response.ErrorListener) error -> {
-                    Toast.makeText(this.context, "Erro", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(context, "Erro", Toast.LENGTH_SHORT).show();
                 }
         );
         
         requestQueue.add(request);
+
+        return this.latLng;
     }
 }
