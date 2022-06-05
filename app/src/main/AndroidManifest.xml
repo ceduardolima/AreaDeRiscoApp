@@ -3,13 +3,14 @@
     xmlns:tools="http://schemas.android.com/tools"
     package="com.example.areaderiscoapp">
     <uses-permission android:name="android.permission.INTERNET" />
+
     <application
         android:allowBackup="true"
         android:dataExtractionRules="@xml/data_extraction_rules"
         android:fullBackupContent="@xml/backup_rules"
         android:icon="@drawable/icon"
         android:label="Area de Risco"
-        android:roundIcon="@mipmap/ic_launcher_round"
+        android:roundIcon="@drawable/icon"
         android:supportsRtl="true"
         android:theme="@style/Theme.Splash"
         tools:targetApi="31">
