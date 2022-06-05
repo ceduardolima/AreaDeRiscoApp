@@ -31,7 +31,7 @@
 
     <androidx.appcompat.widget.Toolbar
         android:id="@+id/toolbar"
-        android:layout_width="408dp"
+        android:layout_width="0dp"
         android:layout_height="78dp"
         android:background="?attr/colorPrimary"
         android:minHeight="?attr/actionBarSize"
@@ -46,8 +46,9 @@
         android:layout_height="62dp"
         android:layout_marginTop="20dp"
         android:background="@drawable/common_google_signin_btn_text_light_normal_background"
-        android:drawableLeft="@drawable/ic_launcher_foreground"
         android:ems="10"
+        android:foreground="@drawable/ic_launcher_foreground"
+        android:foregroundGravity="left|center_vertical"
         android:hint="Pesquisar"
         android:inputType="textPostalAddress"
         android:minHeight="48dp"
@@ -93,8 +94,8 @@
 
     <Switch
         android:id="@+id/bt_switch"
-        android:layout_width="176dp"
-        android:layout_height="44dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:layout_marginStart="20dp"
         android:layout_marginTop="10dp"
         android:background="@drawable/common_google_signin_btn_text_light_focused"
