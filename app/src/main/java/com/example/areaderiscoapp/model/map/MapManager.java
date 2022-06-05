@@ -1,6 +1,7 @@
 package com.example.areaderiscoapp.model.map;
 
 import android.content.Context;
+import android.graphics.Point;
 import android.os.Build;
 
 import androidx.annotation.RequiresApi;
@@ -10,6 +11,7 @@ import com.example.areaderiscoapp.R;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.SupportMapFragment;
+import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.LatLngBounds;
 import com.google.android.gms.maps.model.MarkerOptions;
 import java.util.ArrayList;
@@ -76,6 +78,10 @@ public class MapManager {
     public void addPlace(Place place) {
         /* Adiciona um novo local no places */
         this.places.add(place);
+    }
+
+    public void updateCamera(LatLng latLng) {
+        this.mapFragment.getMapAsync(map -> map.moveCamera(CameraUpdateFactory.newLatLngZoom(latLng, 15)));
     }
 
 }
