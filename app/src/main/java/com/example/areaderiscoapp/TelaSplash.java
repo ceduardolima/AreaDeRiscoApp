@@ -43,7 +43,7 @@ public class TelaSplash extends AppCompatActivity {
                     //ses esqueceram do finish pra destruir a telasplash
                     finish();
                 }
-            }, 0);
+            }, 1000);
         }
     }
 
@@ -97,7 +97,7 @@ public class TelaSplash extends AppCompatActivity {
                         //ses esqueceram do finish pra destruir a telasplash
                         finish();
                     }
-                }, 0);
+                }, 1000);
             }
         }
     };
