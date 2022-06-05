@@ -1,7 +1,9 @@
 package com.example.areaderiscoapp.TSV_java;
 
 
-public class Chamado {
+import java.io.Serializable;
+
+public class Chamado implements Serializable {
     int _id;
     int ano;
     String mes;

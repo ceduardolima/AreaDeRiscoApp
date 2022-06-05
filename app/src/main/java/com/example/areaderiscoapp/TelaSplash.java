@@ -18,6 +18,7 @@ import com.example.areaderiscoapp.TSV_java.Chamado;
 import com.example.areaderiscoapp.TSV_java.TSVReader;
 
 import java.io.File;
+import java.io.Serializable;
 import java.util.ArrayList;
 
 public class TelaSplash extends AppCompatActivity {
@@ -37,14 +38,20 @@ public class TelaSplash extends AppCompatActivity {
             reader();
             new Handler().postDelayed(new Runnable() {
                 public void run() {
-                    Intent intent = new Intent(TelaSplash.this, MainActivity.class);
-                    //preciso passar o arraylist dessa classe para a outra
-                    startActivity(intent);
-                    //ses esqueceram do finish pra destruir a telasplash
-                    finish();
+                    indoparaproxtela();
                 }
             }, 1000);
         }
+    }
+
+    private void indoparaproxtela(){
+        Intent intent = new Intent(TelaSplash.this, MainActivity.class);
+        //preciso passar o arraylist dessa classe para a outra
+        // precisa de uma classe adapter para Object
+        intent.putExtra("data",(Serializable)dataChamados);
+        startActivity(intent);
+        //ses esqueceram do finish pra destruir a telasplash
+        finish();
     }
 
     @RequiresApi(api = Build.VERSION_CODES.N)
@@ -91,13 +98,9 @@ public class TelaSplash extends AppCompatActivity {
                 reader();
                 new Handler().postDelayed(new Runnable() {
                     public void run() {
-                        Intent intent = new Intent(TelaSplash.this, MainActivity.class);
-                        //preciso passar o arraylist dessa classe para a outra
-                        startActivity(intent);
-                        //ses esqueceram do finish pra destruir a telasplash
-                        finish();
+                        indoparaproxtela();
                     }
-                }, 1000);
+                }, 0);
             }
         }
     };

@@ -53,7 +53,7 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         //recuperar datachamados da splash
-      //  this.dataChamados = (ArrayList<Chamado>)getIntent().getExtras().get("data");
+        this.dataChamados = (ArrayList<Chamado>) getIntent().getSerializableExtra("data");
 
         getLocation();
 
