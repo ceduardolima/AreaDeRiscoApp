@@ -15,7 +15,7 @@
         android:label="Area de Risco"
         android:roundIcon="@drawable/icon"
         android:supportsRtl="true"
-        android:theme="@style/Theme.Design.NoActionBar"
+        android:theme="@style/Theme.AreaDeRiscoApp"
         tools:targetApi="31">
         <activity
             android:name=".TelaSplash"
