@@ -19,21 +19,11 @@
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.0" />
 
-    <Button
-        android:id="@+id/location"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="25dp"
-        android:text="Pesquisar"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
-
     <androidx.appcompat.widget.Toolbar
         android:id="@+id/toolbar"
         android:layout_width="0dp"
         android:layout_height="78dp"
-        android:background="?attr/colorPrimary"
+        android:background="@android:color/transparent"
         android:minHeight="?attr/actionBarSize"
         android:theme="?attr/actionBarTheme"
         app:layout_constraintEnd_toEndOf="parent"
@@ -42,68 +32,31 @@
 
     <EditText
         android:id="@+id/txt_pesquisa"
-        android:layout_width="327dp"
-        android:layout_height="62dp"
-        android:layout_marginTop="20dp"
+        android:layout_width="362dp"
+        android:layout_height="46dp"
         android:background="@drawable/common_google_signin_btn_text_light_normal_background"
-        android:ems="10"
-        android:foreground="@drawable/ic_launcher_foreground"
-        android:foregroundGravity="left|center_vertical"
+        android:ems="80"
+        android:drawableLeft="@drawable/ic_action_name"
+        android:padding="5dp"
+        android:paddingLeft="2dp"
         android:hint="Pesquisar"
         android:inputType="textPostalAddress"
         android:minHeight="48dp"
         android:textSize="20sp"
-        android:textStyle="bold"
+        android:textStyle="italic"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.495"
+        app:layout_constraintHorizontal_bias="0.50"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/toolbar" />
 
     <ImageView
-        android:id="@+id/image_icon"
-        android:layout_width="62dp"
-        android:layout_height="52dp"
-        android:layout_marginStart="15dp"
-        android:layout_marginTop="12dp"
+        android:id="@+id/image_sidebar"
+        android:layout_width="48dp"
+        android:layout_height="42dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="16dp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="@+id/map_fragment"
-        app:srcCompat="@drawable/icon" />
-
-    <TextView
-        android:id="@+id/txt_title"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="15dp"
-        android:text="Área de Risco"
-        android:textColor="#FFFFFF"
-        android:textSize="34sp"
-        android:textStyle="bold"
-        app:layout_constraintEnd_toEndOf="@+id/toolbar"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/map_fragment" />
-
-    <ImageButton
-        android:id="@+id/image_bt_help"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="15dp"
-        android:layout_marginEnd="10dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/map_fragment"
-        app:srcCompat="@android:drawable/ic_menu_help" />
-
-    <Switch
-        android:id="@+id/bt_switch"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="20dp"
-        android:layout_marginTop="10dp"
-        android:background="@drawable/common_google_signin_btn_text_light_focused"
-        android:gravity="center"
-        android:text="Zonas Perigosas"
-        android:textColor="#000000"
-        android:textStyle="bold"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/txt_pesquisa" />
+        app:srcCompat="@drawable/sidebar2" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -60,25 +60,25 @@ public class MainActivity extends AppCompatActivity {
         deleteExternalStoragePrivateFile("CHAMADOS");
         getLocation();
 
-        Button button = findViewById(R.id.location);
-        button.setOnClickListener(v -> {
+        //Button button = findViewById(R.id.location);
+        //button.setOnClickListener(v -> {
 
             //check permission
-            if(ActivityCompat.checkSelfPermission(MainActivity.this,Manifest.permission.ACCESS_FINE_LOCATION)
-            == PackageManager.PERMISSION_GRANTED){
+           // if(ActivityCompat.checkSelfPermission(MainActivity.this,Manifest.permission.ACCESS_FINE_LOCATION)
+           // == PackageManager.PERMISSION_GRANTED){
 
                 //when permission is granted
-                Location();
+               // Location();
 
-            } else {
+          //  } else {
 
                 //when permission is denied
-                ActivityCompat.requestPermissions(MainActivity.this,
-                        new String[]{Manifest.permission.ACCESS_FINE_LOCATION}, 23);
-            }
-        });
+            //    ActivityCompat.requestPermissions(MainActivity.this,
+          //              new String[]{Manifest.permission.ACCESS_FINE_LOCATION}, 23);
+          //  }
+      //  });
 
-        init();
+       // init();
     }
 
     private void Location(){
