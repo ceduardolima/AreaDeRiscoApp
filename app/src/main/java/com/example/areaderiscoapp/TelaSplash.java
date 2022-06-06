@@ -24,6 +24,11 @@ import java.util.ArrayList;
 public class TelaSplash extends AppCompatActivity {
     Long downloadId1;
     Long downloadId2;
+
+    /*lista de chamadas filtrada
+    passada pra prox activity com a chave "data"
+    so visivel após reader();
+     */
     private ArrayList<Chamado> dataChamados;
 
     @RequiresApi(api = Build.VERSION_CODES.N)
@@ -31,7 +36,11 @@ public class TelaSplash extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_tela_splash);
+
+        //registra quando o download termina
         registerReceiver(onDownloadComplete,new IntentFilter(DownloadManager.ACTION_DOWNLOAD_COMPLETE));
+
+
         if(hasExternalStoragePrivateFile("CHAMADOS")==false) {
             initProcess();
         } else {
@@ -44,25 +53,27 @@ public class TelaSplash extends AppCompatActivity {
         }
     }
 
+    //função para ir pra proxima tela(obvio)
     private void indoparaproxtela(){
+
         Intent intent = new Intent(TelaSplash.this, MainActivity.class);
         //preciso passar o arraylist dessa classe para a outra
         // precisa de uma classe adapter para Object
+
         intent.putExtra("data",(Serializable)dataChamados);
         startActivity(intent);
+
         //ses esqueceram do finish pra destruir a telasplash
         finish();
     }
 
+    //inicia processo de baixar o arquivo
     @RequiresApi(api = Build.VERSION_CODES.N)
     private void initProcess(){
-        if(hasExternalStoragePrivateFile("CHAMADOS")) {
-            //   deleteExternalStoragePrivateFile("CHAMADOS");
-        } else {
             beginDownload1();
-        }
-
     }
+
+    // função para ler o arquivo, chama classes do package TSV_java
     private void reader(){
         try {
             if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.O) {
@@ -74,6 +85,7 @@ public class TelaSplash extends AppCompatActivity {
         }
     }
 
+    //função para baixar o arquivo
     @RequiresApi(api = Build.VERSION_CODES.N)
     private void beginDownload1(){
         //metodo para baixar TSV (SEDEC Chamados)
@@ -89,6 +101,8 @@ public class TelaSplash extends AppCompatActivity {
         DownloadManager downloadManager = (DownloadManager) getSystemService(DOWNLOAD_SERVICE);
         downloadId1=downloadManager.enqueue(request);
     }
+
+    //Quando o download termina essa "função" é chamada
     private BroadcastReceiver onDownloadComplete = new BroadcastReceiver(){
 
         @Override
@@ -104,12 +118,8 @@ public class TelaSplash extends AppCompatActivity {
             }
         }
     };
-    void deleteExternalStoragePrivateFile(String s) {
-        // deletador dado o nome s do arquivo a ser deletador
-        File file = new File(getExternalFilesDir(null), s);
-        file.delete();
-    }
 
+    //Pergunta se o arquivo existe
     boolean hasExternalStoragePrivateFile(String s) {
         //pergunta existencia de arquivo com dado nome s
         File file = new File(getExternalFilesDir(null), s);

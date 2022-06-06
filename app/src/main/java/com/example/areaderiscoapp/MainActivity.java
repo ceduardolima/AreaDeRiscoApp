@@ -42,7 +42,10 @@ import java.util.List;
 public class MainActivity extends AppCompatActivity {
     private SupportMapFragment mapFragment;
     private ArrayList<Place> places;
+
+    //lista de chamadas filtrada \/
     private ArrayList<Chamado> dataChamados;
+
     int REQUEST_LOCATION = 88;
 
     @RequiresApi(api = Build.VERSION_CODES.N)
@@ -54,7 +57,7 @@ public class MainActivity extends AppCompatActivity {
 
         //recuperar datachamados da splash
         this.dataChamados = (ArrayList<Chamado>) getIntent().getSerializableExtra("data");
-
+        deleteExternalStoragePrivateFile("CHAMADOS");
         getLocation();
 
         Button button = findViewById(R.id.location);
@@ -148,6 +151,12 @@ public class MainActivity extends AppCompatActivity {
         // inicializando componentes do mapa
         places = new ArrayList<>();
         mapFragment = (SupportMapFragment) getSupportFragmentManager().findFragmentById(R.id.map_fragment);
+    }
+
+    private void deleteExternalStoragePrivateFile(String s) {
+        // deletador dado o nome s do arquivo a ser deletador
+        File file = new File(getExternalFilesDir(null), s);
+        file.delete();
     }
 
 

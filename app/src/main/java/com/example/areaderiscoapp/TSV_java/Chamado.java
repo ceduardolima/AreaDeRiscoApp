@@ -16,12 +16,22 @@ public class Chamado implements Serializable {
     Chamado(int _id, int ano, String mes, String processo_numero, String solicitação_descrição
             , String solicitação_bairro, String solicitação_localidade, String solicitação_endereço){
         this._id=_id;
+
         this.ano=ano;
+
         this.mes=mes;
+
+        //o numero do processo, pode ser linkado com outras bases de dados
         this.processo_numero=processo_numero;
+
+        //o motivo da chamada
         this.solicitação_descrição=solicitação_descrição;
+
         this.solicitação_bairro=solicitação_bairro;
+
         this.solicitação_localidade=solicitação_localidade;
+
+        //endereço pode não ter o numero
         this.solicitação_endereço=solicitação_endereço;
     }
 
