@@ -86,26 +86,6 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
       //  deleteExternalStoragePrivateFile("CHAMADOS");
         getLocation();
 
-        //Button button = findViewById(R.id.location);
-        //button.setOnClickListener(v -> {
-
-            //check permission
-           // if(ActivityCompat.checkSelfPermission(MainActivity.this,Manifest.permission.ACCESS_FINE_LOCATION)
-           // == PackageManager.PERMISSION_GRANTED){
-
-                //when permission is granted
-               // Location();
-
-          //  } else {
-
-                //when permission is denied
-            //    ActivityCompat.requestPermissions(MainActivity.this,
-          //              new String[]{Manifest.permission.ACCESS_FINE_LOCATION}, 23);
-          //  }
-      //  });
-
-
-
     }
 
     private void Location(){

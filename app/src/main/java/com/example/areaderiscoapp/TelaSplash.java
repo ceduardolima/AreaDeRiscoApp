@@ -37,13 +37,11 @@ public class TelaSplash extends AppCompatActivity {
         setContentView(R.layout.activity_tela_splash);
 
         //registra quando o download termina
-        //registerReceiver(onDownloadComplete,new IntentFilter(DownloadManager.ACTION_DOWNLOAD_COMPLETE));
+        registerReceiver(onDownloadComplete,new IntentFilter(DownloadManager.ACTION_DOWNLOAD_COMPLETE));
 
-
-       if(hasExternalStoragePrivateFile("CHAMADOS")==false) {
+       if(!hasExternalStoragePrivateFile("CHAMADOS")) {
             initProcess();
         } else {
-
 
             reader();
             new Handler().postDelayed(new Runnable() {
