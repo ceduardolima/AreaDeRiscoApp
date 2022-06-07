@@ -23,8 +23,7 @@ import java.util.ArrayList;
 
 public class TelaSplash extends AppCompatActivity {
     Long downloadId1;
-    Long downloadId2;
-
+    DownloadManager manager;
     /*lista de chamadas filtrada
     passada pra prox activity com a chave "data"
     so visivel após reader();
@@ -38,12 +37,14 @@ public class TelaSplash extends AppCompatActivity {
         setContentView(R.layout.activity_tela_splash);
 
         //registra quando o download termina
-        registerReceiver(onDownloadComplete,new IntentFilter(DownloadManager.ACTION_DOWNLOAD_COMPLETE));
+        //registerReceiver(onDownloadComplete,new IntentFilter(DownloadManager.ACTION_DOWNLOAD_COMPLETE));
 
 
-        if(hasExternalStoragePrivateFile("CHAMADOS")==false) {
+       if(hasExternalStoragePrivateFile("CHAMADOS")==false) {
             initProcess();
         } else {
+
+
             reader();
             new Handler().postDelayed(new Runnable() {
                 public void run() {
@@ -77,6 +78,7 @@ public class TelaSplash extends AppCompatActivity {
     private void reader(){
         try {
             if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.O) {
+
                 TSVReader reader = new TSVReader(getExternalFilesDir(null),"CHAMADOS");
                 this.dataChamados=reader.getData();
             }
@@ -90,16 +92,14 @@ public class TelaSplash extends AppCompatActivity {
     private void beginDownload1(){
         //metodo para baixar TSV (SEDEC Chamados)
         File file = new File(getExternalFilesDir(null),"CHAMADOS");
-        DownloadManager.Request request = new DownloadManager.Request(Uri.parse("" +
-                "http://dados.recife.pe.gov.br/datastore/dump/5eaed1e8-aa7f-48d7-9512-638f80874870?bom=True&format=tsv"))
-                .setTitle("CHAMADOS")
-                .setNotificationVisibility(DownloadManager.Request.VISIBILITY_VISIBLE)
-                .setDestinationUri(Uri.fromFile(file))
-                .setRequiresCharging(false)
-                .setAllowedOverMetered(true)
-                .setAllowedOverRoaming(true);
-        DownloadManager downloadManager = (DownloadManager) getSystemService(DOWNLOAD_SERVICE);
-        downloadId1=downloadManager.enqueue(request);
+        manager = (DownloadManager) getSystemService(Context.DOWNLOAD_SERVICE);
+        Uri uri = Uri.parse("http://dados.recife.pe.gov.br/datastore/dump/5eaed1e8-aa7f-48d7-9512-638f80874870?bom=True&format=tsv");
+
+        DownloadManager.Request request = new DownloadManager.Request(uri);
+        request.setNotificationVisibility(DownloadManager.Request.VISIBILITY_VISIBLE);
+        request.setTitle("CHAMADOS");
+        request.setDestinationUri(Uri.fromFile(file));
+        downloadId1=manager.enqueue(request);
     }
 
     //Quando o download termina essa "função" é chamada

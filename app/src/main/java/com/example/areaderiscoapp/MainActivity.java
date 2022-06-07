@@ -82,7 +82,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         }
         //recuperar datachamados da splash
         this.dataChamados = (ArrayList<Chamado>) getIntent().getSerializableExtra("data");
-        deleteExternalStoragePrivateFile("CHAMADOS");
+      //  deleteExternalStoragePrivateFile("CHAMADOS");
         getLocation();
 
         //Button button = findViewById(R.id.location);
