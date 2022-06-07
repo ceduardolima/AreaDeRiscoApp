@@ -19,9 +19,9 @@ import java.util.ArrayList;
 public class MapManager {
     /* Faz toda a inicialização do mapa no aplicativo */
 
-    private SupportMapFragment mapFragment;
-    private ArrayList<Place> places;
-    private Context context;
+    private final SupportMapFragment mapFragment;
+    private final ArrayList<Place> places;
+    private final Context context;
     private ArrayList<Place> neighborhood;
 
     public MapManager(Context context, SupportMapFragment mapFragment, ArrayList<Place> places){

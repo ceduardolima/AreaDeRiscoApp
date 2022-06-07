@@ -24,6 +24,7 @@ import android.widget.Toast;
 
 import com.example.areaderiscoapp.TSV_java.Chamado;
 import com.example.areaderiscoapp.TSV_java.TSVReader;
+import com.example.areaderiscoapp.model.map.MapManager;
 import com.example.areaderiscoapp.model.map.Place;
 
 import com.google.android.gms.common.api.ApiException;
@@ -34,6 +35,7 @@ import com.google.android.gms.location.LocationSettingsRequest;
 import com.google.android.gms.location.LocationSettingsResponse;
 import com.google.android.gms.location.LocationSettingsStatusCodes;
 import com.google.android.gms.maps.SupportMapFragment;
+import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.android.material.navigation.NavigationView;
@@ -47,7 +49,6 @@ import java.util.List;
 
 public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
     private SupportMapFragment mapFragment;
-    private ArrayList<Place> places;
     private DrawerLayout drawer;
 
     //lista de chamadas filtrada \/
@@ -61,7 +62,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         super.onCreate(savedInstanceState);
 
         setContentView(R.layout.activity_main);
-
+        init();
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
@@ -103,10 +104,9 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
           //  }
       //  });
 
-       // init();
+
+
     }
-
-
 
     private void Location(){
 
@@ -176,7 +176,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     private void init(){
         /* Inicia os componentes da activity */
         // inicializando componentes do mapa
-        places = new ArrayList<>();
+
         mapFragment = (SupportMapFragment) getSupportFragmentManager().findFragmentById(R.id.map_fragment);
     }
 
@@ -201,7 +201,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         switch (item.getItemId()){
             case R.id.nav_message:
                 getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container,
-                        new MapsFragments()).commit();
+                        mapFragment).commit();
                 break;
         }
         drawer.closeDrawer(GravityCompat.START);
