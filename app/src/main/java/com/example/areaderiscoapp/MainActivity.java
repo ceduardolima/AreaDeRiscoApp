@@ -18,6 +18,7 @@ import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.Button;
 import android.widget.Toast;
 
@@ -184,6 +185,13 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                         mapFragment).commit();
                 break;
         }
+        switch (item.getItemId()){
+            case R.id.nav_contact:
+                Intent intentTela = new Intent(getApplicationContext(), FaleConosco.class);
+                startActivity(intentTela);
+                break;
+        }
+
         drawer.closeDrawer(GravityCompat.START);
         return true;
     }

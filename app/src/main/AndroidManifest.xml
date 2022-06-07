@@ -18,6 +18,18 @@
         android:theme="@style/Theme.AreaDeRiscoApp"
         tools:targetApi="31">
         <activity
+            android:name=".Confirmar"
+            android:exported="false" />
+        <activity
+            android:name=".Logradouro"
+            android:exported="false" />
+        <activity
+            android:name=".Resultado"
+            android:exported="false" />
+        <activity
+            android:name=".FaleConosco"
+            android:exported="false" />
+        <activity
             android:name=".TelaSplash"
             android:exported="true">
             <intent-filter>
@@ -28,8 +40,7 @@
         </activity>
         <activity
             android:name=".MainActivity"
-            android:exported="true">
-        </activity>
+            android:exported="true" />
 
         <meta-data
             android:name="com.google.android.geo.API_KEY"

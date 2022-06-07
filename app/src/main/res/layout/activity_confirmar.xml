@@ -1,0 +1,146 @@
+<?xml version="1.0" encoding="utf-8"?>
+<AbsoluteLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#93AAFF"
+    tools:context=".Confirmar">
+
+    <TextView
+        android:id="@+id/textViewTitulo"
+        android:layout_width="381dp"
+        android:layout_height="wrap_content"
+        android:layout_x="13dp"
+        android:layout_y="26dp"
+        android:gravity="center"
+        android:text="Nova Zona Perigosa a ser confirmada"
+        android:textAlignment="center"
+        android:textSize="25sp"
+        android:textStyle="bold"
+        tools:ignore="MissingConstraints"
+        tools:layout_editor_absoluteX="16dp"
+        tools:layout_editor_absoluteY="192dp" />
+
+    <TextView
+        android:id="@+id/textViewLogradouroRotulo"
+        android:layout_width="138dp"
+        android:layout_height="wrap_content"
+        android:layout_x="15dp"
+        android:layout_y="130dp"
+        android:text="Logradouro"
+        android:textSize="20sp"
+        android:textStyle="bold" />
+
+    <TextView
+        android:id="@+id/textViewLogradouroValor"
+        android:layout_width="379dp"
+        android:layout_height="wrap_content"
+        android:layout_x="15dp"
+        android:layout_y="170dp"
+        android:text="-"
+        android:textSize="20sp" />
+
+    <TextView
+        android:id="@+id/textViewBairroRotulo"
+        android:layout_width="138dp"
+        android:layout_height="wrap_content"
+        android:layout_x="15dp"
+        android:layout_y="220dp"
+        android:text="Bairro"
+        android:textSize="20sp"
+        android:textStyle="bold" />
+
+    <TextView
+        android:id="@+id/textViewBairroValor"
+        android:layout_width="379dp"
+        android:layout_height="wrap_content"
+        android:layout_x="15dp"
+        android:layout_y="260dp"
+        android:text="-"
+        android:textSize="20sp" />
+
+    <TextView
+        android:id="@+id/textViewCidadeRotulo"
+        android:layout_width="138dp"
+        android:layout_height="wrap_content"
+        android:layout_x="15dp"
+        android:layout_y="310dp"
+        android:text="Cidade"
+        android:textSize="20sp"
+        android:textStyle="bold" />
+
+    <TextView
+        android:id="@+id/textViewCidadeValor"
+        android:layout_width="278dp"
+        android:layout_height="wrap_content"
+        android:layout_x="15dp"
+        android:layout_y="350dp"
+        android:text="-"
+        android:textSize="20sp" />
+
+    <TextView
+        android:id="@+id/textViewUFRotulo"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_x="365dp"
+        android:layout_y="310dp"
+        android:text="UF"
+        android:textSize="20sp"
+        android:textStyle="bold" />
+
+    <TextView
+        android:id="@+id/textViewUFValor"
+        android:layout_width="79dp"
+        android:layout_height="wrap_content"
+        android:layout_x="315dp"
+        android:layout_y="350dp"
+        android:text="-"
+        android:textAlignment="textEnd"
+        android:textSize="20sp" />
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="331dp"
+        android:layout_y="400dp">
+
+        <TextView
+            android:id="@+id/textDesc"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Descrição"
+            android:textColor="#000000"
+            android:textSize="24sp"
+            android:textStyle="bold"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/DescZona"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginTop="36dp"
+            android:gravity="center"
+            android:textColor="#B9000000"
+            android:textSize="16sp"
+            android:textStyle="bold"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/textDesc" />
+
+        <Button
+            android:id="@+id/buttonVoltar"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="40dp"
+            android:text="Voltar"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/DescZona"
+            tools:ignore="MissingConstraints" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+</AbsoluteLayout>
