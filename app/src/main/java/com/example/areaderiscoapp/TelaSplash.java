@@ -13,6 +13,8 @@ import android.content.IntentFilter;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
+import android.os.Environment;
+import android.os.FileUtils;
 import android.os.Handler;
 import android.os.Parcelable;
 import android.util.Log;
@@ -20,9 +22,22 @@ import android.widget.Toast;
 
 import com.example.areaderiscoapp.TSV_java.Chamado;
 import com.example.areaderiscoapp.TSV_java.TSVReader;
+import com.google.android.gms.common.util.IOUtils;
 
+import java.io.BufferedInputStream;
+import java.io.BufferedReader;
 import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.io.OutputStream;
 import java.io.Serializable;
+import java.nio.charset.StandardCharsets;
+import java.nio.file.Files;
+import java.nio.file.Paths;
+import java.nio.file.StandardCopyOption;
 import java.util.ArrayList;
 
 @RequiresApi(api = Build.VERSION_CODES.N)
@@ -44,9 +59,11 @@ public class TelaSplash extends AppCompatActivity {
         //registra quando o download termina
         registerReceiver(onDownloadComplete,new IntentFilter(DownloadManager.ACTION_DOWNLOAD_COMPLETE));
 
-       if(!hasExternalStoragePrivateFile("CHAMADOS")) {
+   /*    if(!hasExternalStoragePrivateFile("CHAMADOS")) {
             initProcess();
         } else {
+
+    */
 
             reader();
             new Handler().postDelayed(new Runnable() {
@@ -54,7 +71,7 @@ public class TelaSplash extends AppCompatActivity {
                     indoparaproxtela();
                 }
             }, 1000);
-        }
+     //   }
     }
 
     //função para ir pra proxima tela(obvio)
@@ -75,22 +92,33 @@ public class TelaSplash extends AppCompatActivity {
     @RequiresApi(api = Build.VERSION_CODES.N)
     private void initProcess(){
             //beginDownload1();
-       downloadId1= downloadFile(Uri.parse("http://dados.recife.pe.gov.br/datastore/dump/5eaed1e8-aa7f-48d7-9512-638f80874870?bom=True&format=tsv")
-                ,getExternalFilesDir(null).toString(), "CHAMADOS");
+       //downloadId1= downloadFile(Uri.parse("http://dados.recife.pe.gov.br/datastore/dump/5eaed1e8-aa7f-48d7-9512-638f80874870?bom=True&format=tsv")
+       //         ,getExternalFilesDir(null).toString(), "CHAMADOS");
+        reader();
     }
 
     // função para ler o arquivo, chama classes do package TSV_java
     private void reader(){
         try {
-            if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.O) {
-
-                TSVReader reader = new TSVReader(
-                        getExternalCacheDir()
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+                copiaarquivo();
+                TSVReader reader = new TSVReader(getExternalFilesDir(null)
                         ,"CHAMADOS");
                 this.dataChamados=reader.getData();
             }
         } catch (Exception e) {
             e.printStackTrace();
+        }
+    }
+    @RequiresApi(api = Build.VERSION_CODES.O)
+    void copiaarquivo() throws IOException {
+        InputStream inputStream = getAssets().open("CHAMADOS.txt");
+        File file = new File(getExternalFilesDir(null),"CHAMADOS");
+        FileOutputStream output = new FileOutputStream(file);
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
+            FileUtils.copy(inputStream,output);
+        } else {
+            Files.copy(inputStream, Paths.get(file.getPath()), StandardCopyOption.REPLACE_EXISTING);
         }
     }
 
@@ -102,6 +130,7 @@ public class TelaSplash extends AppCompatActivity {
 
         manager = (DownloadManager)getSystemService(DOWNLOAD_SERVICE);
         try {
+            File file = new File(getExternalFilesDir(null),"CHAMADOS");
             DownloadManager.Request request = new DownloadManager.Request(uri);
 
             //Setting title of request
@@ -114,9 +143,10 @@ public class TelaSplash extends AppCompatActivity {
             request.setNotificationVisibility(DownloadManager.Request.VISIBILITY_VISIBLE_NOTIFY_COMPLETED);
 
             //Set the local destination for the downloaded file to a path within the application's external files directory
-            request.setDestinationInExternalFilesDir(getApplicationContext(),"", fileName);
+            request.setDestinationUri(Uri.fromFile(file));
 
             request.allowScanningByMediaScanner();
+            request.setAllowedOverMetered(true);
 
             //Enqueue download and save the referenceId
             downloadReference = manager.enqueue(request);
