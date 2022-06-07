@@ -8,13 +8,15 @@ public class Chamado implements Serializable {
     int ano;
     String mes;
     String processo_numero;
-    String solicitação_descrição;
-    String solicitação_bairro;
-    String solicitação_localidade;
-    String solicitação_endereço;
+    String descricao;
+    String bairro;
+    String localidade;
+    String endereco;
+    String houseNumber;
 
-    Chamado(int _id, int ano, String mes, String processo_numero, String solicitação_descrição
-            , String solicitação_bairro, String solicitação_localidade, String solicitação_endereço){
+
+    Chamado(int _id, int ano, String mes, String processo_numero, String descricao
+            , String bairro, String localidade, String endereco){
         this._id=_id;
 
         this.ano=ano;
@@ -25,14 +27,46 @@ public class Chamado implements Serializable {
         this.processo_numero=processo_numero;
 
         //o motivo da chamada
-        this.solicitação_descrição=solicitação_descrição;
+        this.descricao = descricao;
 
-        this.solicitação_bairro=solicitação_bairro;
+        this.bairro = bairro.toLowerCase();
 
-        this.solicitação_localidade=solicitação_localidade;
+        this.localidade = localidade;
 
         //endereço pode não ter o numero
-        this.solicitação_endereço=solicitação_endereço;
+        filterAddress(endereco);
+    }
+
+    private boolean isHouseNumberAvailable(String houseNumber) {
+        boolean isAvailable = true;
+        for(int i = 0; i < houseNumber.length(); i++) {
+            if(!Character.isDigit(houseNumber.charAt(i))) {
+                return false;
+            }
+        }
+        return true;
+    }
+
+    private void filterAddress(String address) {
+        // Faz a separação entre a rua e o numero da casa.
+        // A separação pode ser por virgula ou 'Nº'
+        if(address.contains(",")) {
+            this.endereco = address.split(",")[0].toLowerCase();
+
+            //Verifica se o numero é valido, pois algumas strings possuem numero concatenado com caracter
+            if(isHouseNumberAvailable(address.split(",")[1]))
+                this.houseNumber = address.split(",")[1];
+            else this.houseNumber = null;
+
+        } else {
+            if(address.contains("Nº")) {
+                this.endereco = address.split("Nº")[0].toLowerCase();
+
+                if(isHouseNumberAvailable(address.split(",")[1]))
+                    this.houseNumber = address.split(",")[1];
+                else this.houseNumber = null;
+            }
+        }
     }
 
     public int get_id() {
@@ -67,35 +101,35 @@ public class Chamado implements Serializable {
         this.processo_numero = processo_numero;
     }
 
-    public String getSolicitação_descrição() {
-        return solicitação_descrição;
+    public String getDescricao() {
+        return descricao;
     }
 
-    public void setSolicitação_descrição(String solicitação_descrição) {
-        this.solicitação_descrição = solicitação_descrição;
+    public void setDescricao(String descricao) {
+        this.descricao = descricao;
     }
 
-    public String getSolicitação_bairro() {
-        return solicitação_bairro;
+    public String getBairro() {
+        return bairro;
     }
 
-    public void setSolicitação_bairro(String solicitação_bairro) {
-        this.solicitação_bairro = solicitação_bairro;
+    public void setBairro(String bairro) {
+        this.bairro = bairro;
     }
 
-    public String getSolicitação_localidade() {
-        return solicitação_localidade;
+    public String getLocalidade() {
+        return localidade;
     }
 
-    public void setSolicitação_localidade(String solicitação_localidade) {
-        this.solicitação_localidade = solicitação_localidade;
+    public void setLocalidade(String localidade) {
+        this.localidade = localidade;
     }
 
-    public String getSolicitação_endereço() {
-        return solicitação_endereço;
+    public String getEndereco() {
+        return endereco;
     }
 
-    public void setSolicitação_endereço(String solicitação_endereço) {
-        this.solicitação_endereço = solicitação_endereço;
+    public void setEndereco(String endereco) {
+        this.endereco = endereco;
     }
 }
