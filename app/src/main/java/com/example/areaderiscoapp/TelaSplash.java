@@ -13,31 +13,24 @@ import android.content.IntentFilter;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
-import android.os.Environment;
 import android.os.FileUtils;
 import android.os.Handler;
-import android.os.Parcelable;
 import android.util.Log;
 import android.widget.Toast;
 
 import com.example.areaderiscoapp.TSV_java.Chamado;
 import com.example.areaderiscoapp.TSV_java.TSVReader;
-import com.google.android.gms.common.util.IOUtils;
 
-import java.io.BufferedInputStream;
-import java.io.BufferedReader;
 import java.io.File;
-import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
-import java.io.InputStreamReader;
-import java.io.OutputStream;
 import java.io.Serializable;
-import java.nio.charset.StandardCharsets;
+
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.nio.file.StandardCopyOption;
+
 import java.util.ArrayList;
 
 @RequiresApi(api = Build.VERSION_CODES.N)
@@ -67,10 +60,21 @@ public class TelaSplash extends AppCompatActivity {
 
             new Handler().postDelayed(new Runnable() {
                 public void run() {
-                    reader();
+
+                        if(!hasExternalStoragePrivateFile("CHAMADOS")){
+                            try {
+                                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+                                    copiaarquivo();
+                                }
+                            } catch (IOException e) {
+                                e.printStackTrace();
+                            }
+                        }
+                        reader();
+
                     indoparaproxtela();
                 }
-            }, 1000);
+            }, 500);
      //   }
     }
 
@@ -101,7 +105,6 @@ public class TelaSplash extends AppCompatActivity {
     private void reader(){
         try {
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-                copiaarquivo();
                 TSVReader reader = new TSVReader(getExternalFilesDir(null)
                         ,"CHAMADOS");
                 this.dataChamados=reader.getData();
