@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <style name="text_edit_style">
+        <item name="android:background">@drawable/text_edit_shape</item>
+        <item name="android:drawableLeft">@drawable/ic_action_name</item>
+        <item name="android:layout_marginTop">30dp</item>
+        <item name="android:ems">80</item>
+        <item name="android:paddingLeft">15dp</item>
+        <item name="android:paddingRight">15dp</item>
+        <item name="android:drawablePadding">10dp</item>
+        <item name="android:textColor">@color/black</item>
+        <item name="android:textColorHint">@color/grey</item>
+    </style>
+
+</resources>
