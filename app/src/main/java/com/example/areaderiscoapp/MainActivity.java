@@ -154,12 +154,12 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         PermissionListener permissionlistener = new PermissionListener() {
             @Override
             public void onPermissionGranted() {
-                Toast.makeText(MainActivity.this, "Permission Granted", Toast.LENGTH_SHORT).show();
+                Toast.makeText(MainActivity.this, "Permissão Aceita", Toast.LENGTH_SHORT).show();
             }
 
             @Override
             public void onPermissionDenied(List<String> deniedPermissions) {
-                Toast.makeText(MainActivity.this, "Permission Denied\n" + deniedPermissions.toString(), Toast.LENGTH_SHORT).show();
+                Toast.makeText(MainActivity.this, "Permissão Rejeitada\n" + deniedPermissions.toString(), Toast.LENGTH_SHORT).show();
             }
 
 
@@ -167,7 +167,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
         TedPermission.create()
                 .setPermissionListener(permissionlistener)
-                .setDeniedMessage("If you reject permission,you can not use this service\n\nPlease turn on permissions at [Setting] > [Permission]")
+                .setDeniedMessage("Se você rejeitar a permissão, não poderá usar este serviço\n\nAtive as permissões em [Setting] > [Permission]")
                 .setPermissions(Manifest.permission.ACCESS_COARSE_LOCATION, Manifest.permission.ACCESS_FINE_LOCATION)
                 .check();
 
