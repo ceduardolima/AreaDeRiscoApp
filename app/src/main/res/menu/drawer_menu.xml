@@ -17,9 +17,9 @@
             android:icon="@drawable/ic_home"
             android:title="Localização De Abrigos"/>
         <item
-            android:id="@+id/nav_share"
+            android:id="@+id/nav_contact"
             android:icon="@drawable/ic_baseline_phone_24"
-            android:title="Telefones" />
+            android:title="Fale Conosco" />
 
     </group>
 
