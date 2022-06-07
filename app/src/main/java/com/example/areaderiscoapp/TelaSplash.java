@@ -65,9 +65,9 @@ public class TelaSplash extends AppCompatActivity {
 
     */
 
-            reader();
             new Handler().postDelayed(new Runnable() {
                 public void run() {
+                    reader();
                     indoparaproxtela();
                 }
             }, 1000);
