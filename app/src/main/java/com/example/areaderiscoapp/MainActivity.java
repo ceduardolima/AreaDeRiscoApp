@@ -182,7 +182,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         switch (item.getItemId()){
             case R.id.nav_message:
                 getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container,
-                        mapFragment).commit();
+                        new MapsFragments()).commit();
                 break;
         }
         switch (item.getItemId()){
