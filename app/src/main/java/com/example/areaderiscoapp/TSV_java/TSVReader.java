@@ -9,9 +9,17 @@ import java.io.File;
 import java.util.ArrayList;
 
 public class TSVReader {
+    //o arquivo proprio dito\/
     File arquivo;
+
+    //caminho para o arquivo\/
     String s;
+
+    // dados salvos \/
     ArrayList<Chamado> data;
+
+
+    //construtor cria,lê e salva a base de dados filtrada
     @RequiresApi(api = Build.VERSION_CODES.O)
     public TSVReader(File externalFilesDir, String s) throws Exception {
         this.arquivo=externalFilesDir;

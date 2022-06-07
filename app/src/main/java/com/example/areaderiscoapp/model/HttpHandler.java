@@ -18,6 +18,7 @@ public class HttpHandler {
     public HttpHandler() {
     }
 
+    //dada a url faz uma requisição
     public String makeServiceCall(String reqUrl) {
         String response = null;
         try {
@@ -39,6 +40,7 @@ public class HttpHandler {
         return response;
     }
 
+    //lê a resposta e devolve como uma string
     private String convertStreamToString(InputStream is) {
         BufferedReader reader = new BufferedReader(new InputStreamReader(is));
         StringBuilder sb = new StringBuilder();

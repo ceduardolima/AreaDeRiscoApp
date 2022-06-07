@@ -13,7 +13,7 @@
         android:fullBackupContent="@xml/backup_rules"
         android:icon="@drawable/iconelogo"
         android:label="Area de Risco"
-        android:roundIcon="@drawable/icon"
+        android:roundIcon="@drawable/iconelogo"
         android:supportsRtl="true"
         android:theme="@style/Theme.AreaDeRiscoApp"
         tools:targetApi="31">

@@ -2,8 +2,12 @@ package com.example.areaderiscoapp;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.RequiresApi;
+import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
 import androidx.core.app.ActivityCompat;
+import androidx.core.view.GravityCompat;
+import androidx.drawerlayout.widget.DrawerLayout;
 
 import android.Manifest;
 import android.app.DownloadManager;
@@ -13,6 +17,7 @@ import android.content.pm.PackageManager;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
+import android.view.MenuItem;
 import android.widget.Button;
 import android.widget.Toast;
 
@@ -31,6 +36,7 @@ import com.google.android.gms.location.LocationSettingsStatusCodes;
 import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
+import com.google.android.material.navigation.NavigationView;
 import com.gun0912.tedpermission.PermissionListener;
 import com.gun0912.tedpermission.normal.TedPermission;
 
@@ -39,10 +45,14 @@ import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
     private SupportMapFragment mapFragment;
     private ArrayList<Place> places;
+    private DrawerLayout drawer;
+
+    //lista de chamadas filtrada \/
     private ArrayList<Chamado> dataChamados;
+
     int REQUEST_LOCATION = 88;
 
     @RequiresApi(api = Build.VERSION_CODES.N)
@@ -52,31 +62,51 @@ public class MainActivity extends AppCompatActivity {
 
         setContentView(R.layout.activity_main);
 
-        //recuperar datachamados da splash
-      //  this.dataChamados = (ArrayList<Chamado>)getIntent().getExtras().get("data");
+        Toolbar toolbar = findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
 
+        drawer = findViewById(R.id.drawer_layout);
+        NavigationView navigationView = findViewById(R.id.nav_view);
+        navigationView.setNavigationItemSelectedListener(this);
+
+        ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(this, drawer, toolbar,R.string.navigation_drawer_open
+                , R.string.navigation_drawer_close);
+        drawer.addDrawerListener(toggle);
+        toggle.syncState();
+
+
+        if(savedInstanceState == null) {
+            getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container,
+                    new MapsFragments()).commit();
+            navigationView.setCheckedItem(R.id.nav_message);
+        }
+        //recuperar datachamados da splash
+        this.dataChamados = (ArrayList<Chamado>) getIntent().getSerializableExtra("data");
+        deleteExternalStoragePrivateFile("CHAMADOS");
         getLocation();
 
-        Button button = findViewById(R.id.location);
-        button.setOnClickListener(v -> {
+        //Button button = findViewById(R.id.location);
+        //button.setOnClickListener(v -> {
 
             //check permission
-            if(ActivityCompat.checkSelfPermission(MainActivity.this,Manifest.permission.ACCESS_FINE_LOCATION)
-            == PackageManager.PERMISSION_GRANTED){
+           // if(ActivityCompat.checkSelfPermission(MainActivity.this,Manifest.permission.ACCESS_FINE_LOCATION)
+           // == PackageManager.PERMISSION_GRANTED){
 
                 //when permission is granted
-                Location();
+               // Location();
 
-            } else {
+          //  } else {
 
                 //when permission is denied
-                ActivityCompat.requestPermissions(MainActivity.this,
-                        new String[]{Manifest.permission.ACCESS_FINE_LOCATION}, 23);
-            }
-        });
+            //    ActivityCompat.requestPermissions(MainActivity.this,
+          //              new String[]{Manifest.permission.ACCESS_FINE_LOCATION}, 23);
+          //  }
+      //  });
 
-        init();
+       // init();
     }
+
+
 
     private void Location(){
 
@@ -124,12 +154,12 @@ public class MainActivity extends AppCompatActivity {
         PermissionListener permissionlistener = new PermissionListener() {
             @Override
             public void onPermissionGranted() {
-                Toast.makeText(MainActivity.this, "Permission Granted", Toast.LENGTH_SHORT).show();
+                Toast.makeText(MainActivity.this, "Permissão Aceita", Toast.LENGTH_SHORT).show();
             }
 
             @Override
             public void onPermissionDenied(List<String> deniedPermissions) {
-                Toast.makeText(MainActivity.this, "Permission Denied\n" + deniedPermissions.toString(), Toast.LENGTH_SHORT).show();
+                Toast.makeText(MainActivity.this, "Permissão Rejeitada\n" + deniedPermissions.toString(), Toast.LENGTH_SHORT).show();
             }
 
 
@@ -137,7 +167,7 @@ public class MainActivity extends AppCompatActivity {
 
         TedPermission.create()
                 .setPermissionListener(permissionlistener)
-                .setDeniedMessage("If you reject permission,you can not use this service\n\nPlease turn on permissions at [Setting] > [Permission]")
+                .setDeniedMessage("Se você rejeitar a permissão, não poderá usar este serviço\n\nAtive as permissões em [Setting] > [Permission]")
                 .setPermissions(Manifest.permission.ACCESS_COARSE_LOCATION, Manifest.permission.ACCESS_FINE_LOCATION)
                 .check();
 
@@ -150,7 +180,33 @@ public class MainActivity extends AppCompatActivity {
         mapFragment = (SupportMapFragment) getSupportFragmentManager().findFragmentById(R.id.map_fragment);
     }
 
+    private void deleteExternalStoragePrivateFile(String s) {
+        // deletador dado o nome s do arquivo a ser deletador
+        File file = new File(getExternalFilesDir(null), s);
+        file.delete();
+    }
 
+    @Override
+    public void onBackPressed() {
+        if (drawer.isDrawerOpen(GravityCompat.START)){
+            drawer.closeDrawer(GravityCompat.START);
+        } else {
+            super.onBackPressed();
+        }
+    }
+
+    @Override
+    public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+
+        switch (item.getItemId()){
+            case R.id.nav_message:
+                getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container,
+                        new MapsFragments()).commit();
+                break;
+        }
+        drawer.closeDrawer(GravityCompat.START);
+        return true;
+    }
 
     @Override
     public void onDestroy() {
