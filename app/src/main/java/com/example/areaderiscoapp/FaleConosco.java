@@ -57,7 +57,7 @@ public class FaleConosco extends AppCompatActivity {
                     if (resultado==null) {
                         Requestor.getCEP(FaleConosco.this, editText, editText2, button);
                     }else{
-                        Toast.makeText(FaleConosco.this, "Local já sinalizado aguardando vistoria", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(FaleConosco.this, "Solicitação enviada com sucesso. Aguarde autoridade fazer vistoria!", Toast.LENGTH_SHORT).show();
                     }
                 }else{
                     Toast.makeText(FaleConosco.this,
