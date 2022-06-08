@@ -49,6 +49,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="5dp"
+                android:textAppearance="@style/TextAppearance.AppCompat.Body2"
                 android:text="R. Benfica, 455 - Madalena, Recife - PE, 50720-001"
                 android:textStyle="bold" />
 
@@ -73,6 +74,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_vertical"
+                android:textAppearance="@style/TextAppearance.AppCompat.Body2"
                 android:layout_marginStart="5dp"
                 android:text="(81) 3184-7500"
                 android:textStyle="bold" />
@@ -81,8 +83,10 @@
                 android:id="@+id/textView4"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:textAppearance="@style/TextAppearance.AppCompat.Body2"
                 android:layout_gravity="center_vertical"
                 android:layout_marginStart="20dp"
+
                 android:text="(81) 3183-3674"
                 android:textStyle="bold" />
         </LinearLayout>
@@ -106,6 +110,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
+                android:textAppearance="@style/TextAppearance.AppCompat.Body2"
                 android:layout_marginStart="5dp"
                 android:text="areaderisco@gmail.com"
                 android:textStyle="bold" />
@@ -119,8 +124,8 @@
             android:layout_gravity="center"
             android:layout_marginTop="15dp"
             android:gravity="center"
+            android:textAppearance="@style/TextAppearance.AppCompat.Body2"
             android:text="Atendimento de Segunda a Sexta, das 8h às 18h (horário de Brasília)."
-            android:textColor="#B9000000"
             android:textSize="14sp"
             android:textStyle="bold" />
 
@@ -132,7 +137,7 @@
             android:layout_marginBottom="15dp"
             android:gravity="center"
             android:text="Para contato imediado, favor seguir instruções indicadas."
-            android:textColor="#B9000000"
+            android:textAppearance="@style/TextAppearance.AppCompat.Body2"
             android:textSize="14sp"
             android:textStyle="bold" />
 
