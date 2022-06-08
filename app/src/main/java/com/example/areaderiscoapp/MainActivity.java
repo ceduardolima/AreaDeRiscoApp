@@ -8,6 +8,7 @@ import androidx.appcompat.widget.Toolbar;
 import androidx.core.app.ActivityCompat;
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
+import androidx.fragment.app.Fragment;
 
 import android.Manifest;
 import android.app.DownloadManager;
@@ -25,6 +26,7 @@ import android.widget.Toast;
 
 import com.example.areaderiscoapp.TSV_java.Chamado;
 import com.example.areaderiscoapp.TSV_java.TSVReader;
+import com.example.areaderiscoapp.model.location.Geocode;
 import com.example.areaderiscoapp.model.map.MapManager;
 import com.example.areaderiscoapp.model.map.Place;
 
@@ -35,6 +37,7 @@ import com.google.android.gms.location.LocationServices;
 import com.google.android.gms.location.LocationSettingsRequest;
 import com.google.android.gms.location.LocationSettingsResponse;
 import com.google.android.gms.location.LocationSettingsStatusCodes;
+import com.google.android.gms.maps.MapFragment;
 import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -45,11 +48,12 @@ import com.gun0912.tedpermission.normal.TedPermission;
 
 
 import java.io.File;
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
 public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
-    private SupportMapFragment mapFragment;
+    private Fragment mapFragment;
     private DrawerLayout drawer;
 
     //lista de chamadas filtrada \/
@@ -64,6 +68,8 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
         setContentView(R.layout.activity_main);
         init();
+        this.dataChamados = (ArrayList<Chamado>) getIntent().getSerializableExtra("data");
+
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
@@ -76,15 +82,19 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         drawer.addDrawerListener(toggle);
         toggle.syncState();
 
+        Fragment fragment = new MapsFragments();
+        Bundle extras = new Bundle();
+        extras.putSerializable("data", (Serializable) this.dataChamados);
+        fragment.setArguments(extras);
 
         if(savedInstanceState == null) {
-            getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container,
-                    new MapsFragments()).commit();
+            getSupportFragmentManager()
+                    .beginTransaction()
+                    .replace(R.id.fragment_container, fragment)
+                    .commit();
             navigationView.setCheckedItem(R.id.nav_message);
         }
-        //recuperar datachamados da splash
-        this.dataChamados = (ArrayList<Chamado>) getIntent().getSerializableExtra("data");
-      //  deleteExternalStoragePrivateFile("CHAMADOS");
+
         getLocation();
 
     }
@@ -158,7 +168,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         /* Inicia os componentes da activity */
         // inicializando componentes do mapa
 
-        mapFragment = (SupportMapFragment) getSupportFragmentManager().findFragmentById(R.id.map_fragment);
+        mapFragment = new MapsFragments();
     }
 
     private void deleteExternalStoragePrivateFile(String s) {

@@ -12,7 +12,7 @@ public class Chamado implements Serializable {
     String bairro;
     String localidade;
     String endereco;
-    String houseNumber;
+    private String houseNumber;
 
 
     Chamado(int _id, int ano, String mes, String processo_numero, String descricao
@@ -131,5 +131,13 @@ public class Chamado implements Serializable {
 
     public void setEndereco(String endereco) {
         this.endereco = endereco;
+    }
+
+    public String getHouseNumber() {
+        return houseNumber;
+    }
+
+    public void setHouseNumber(String houseNumber) {
+        this.houseNumber = houseNumber;
     }
 }

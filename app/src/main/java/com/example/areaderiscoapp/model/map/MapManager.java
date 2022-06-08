@@ -13,6 +13,7 @@ import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.LatLngBounds;
+import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 import java.util.ArrayList;
 
@@ -23,6 +24,7 @@ public class MapManager {
     private final ArrayList<Place> places;
     private final Context context;
     private ArrayList<Place> neighborhood;
+    private Marker currentPos;
 
     public MapManager(Context context, SupportMapFragment mapFragment, ArrayList<Place> places){
         this.mapFragment = mapFragment;
@@ -54,6 +56,22 @@ public class MapManager {
                                         ContextCompat.getColor(context, R.color.alert))
                         )
         ));
+    }
+
+    public void setPosition(String address, LatLng latLng) {
+        /* Cria os marcadores dentro do mapa */
+
+        if( this.currentPos != null ){
+            // Apaga a ultima posicao em caso de noca pesquisa
+            this.currentPos.remove();
+        }
+        mapFragment.getMapAsync(googleMap -> {
+            this.currentPos = googleMap.addMarker(
+                    new MarkerOptions()
+                        .title("Sua posição")
+                        .position(latLng));
+            googleMap.moveCamera(CameraUpdateFactory.newLatLngZoom(latLng, 17));
+        });
     }
 
     @RequiresApi(api = Build.VERSION_CODES.N)

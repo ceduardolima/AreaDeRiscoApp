@@ -20,6 +20,9 @@ import android.widget.Toast;
 
 import com.example.areaderiscoapp.TSV_java.Chamado;
 import com.example.areaderiscoapp.TSV_java.TSVReader;
+import com.example.areaderiscoapp.model.location.Geocode;
+import com.example.areaderiscoapp.model.map.Place;
+import com.google.android.gms.maps.model.LatLng;
 
 import java.io.File;
 import java.io.FileOutputStream;
@@ -37,11 +40,8 @@ import java.util.ArrayList;
 public class TelaSplash extends AppCompatActivity {
     private Long downloadId1;
     DownloadManager manager;
-    /*lista de chamadas filtrada
-    passada pra prox activity com a chave "data"
-    so visivel após reader();
-     */
     private ArrayList<Chamado> dataChamados;
+    private ArrayList<Place> places;
 
     @RequiresApi(api = Build.VERSION_CODES.N)
     @Override
@@ -161,20 +161,7 @@ public class TelaSplash extends AppCompatActivity {
         }
         return downloadReference;
     }
-    /*
-    private void beginDownload1(){
-        //metodo para baixar TSV (SEDEC Chamados)
-        File file = new File(getExternalCacheDir(),"CHAMADOS");
-        manager = (DownloadManager) getSystemService(Context.DOWNLOAD_SERVICE);
-        Uri uri = Uri.parse("http://dados.recife.pe.gov.br/datastore/dump/5eaed1e8-aa7f-48d7-9512-638f80874870?bom=True&format=tsv");
 
-        DownloadManager.Request request = new DownloadManager.Request(uri);
-        request.setNotificationVisibility(DownloadManager.Request.VISIBILITY_VISIBLE);
-        request.setTitle("CHAMADOS");
-        request.setDestinationUri(Uri.fromFile(file));
-        downloadId1=manager.enqueue(request);
-    }
-*/
     //Quando o download termina essa "função" é chamada
     private BroadcastReceiver onDownloadComplete = new BroadcastReceiver(){
 
@@ -202,4 +189,5 @@ public class TelaSplash extends AppCompatActivity {
         );
         return file.exists();
     }
+
 }

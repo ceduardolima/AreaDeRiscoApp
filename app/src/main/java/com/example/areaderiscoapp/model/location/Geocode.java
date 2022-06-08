@@ -51,13 +51,15 @@ public class Geocode {
             if(i < (string_splited.length - 1))
                 buffer.append(connector);
         }
-        String bufferHouseNumber = "%2C%20" + houseNumber;
-        buffer.append(houseNumber);
+        if( houseNumber != null) {
+            String bufferHouseNumber = "%2C%20" + houseNumber;
+            buffer.append(houseNumber);
+        }
 
         return buffer.toString();
     }
 
-    public LatLng request(Context context) {
+    public void request(Context context) {
         /* função responsável por fazer a requisição ao geocode api */
 
         RequestQueue requestQueue = Volley.newRequestQueue(context);
@@ -75,7 +77,6 @@ public class Geocode {
                         double lat = jsonArray.getJSONObject(0).getDouble("lat");
                         double lng = jsonArray.getJSONObject(0).getDouble("lon");
                         this.latLng = new LatLng(lat, lng);
-
                         } catch (JSONException jsonException) {
                         jsonException.printStackTrace();
                     }
@@ -84,9 +85,10 @@ public class Geocode {
                     Toast.makeText(context, "Erro", Toast.LENGTH_SHORT).show();
                 }
         );
-        
         requestQueue.add(request);
+    }
 
-        return this.latLng;
+    public LatLng getLatLng() {
+        return latLng;
     }
 }
