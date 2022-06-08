@@ -24,7 +24,7 @@
         android:layout_width="340dp"
         android:layout_height="55dp"
         style="@style/text_edit_style"
-        android:hint="Ex: Rua José Ferreira, 141"
+        android:hint="Ex: Recife, Rua José Ferreira"
         android:textSize="15sp"
         android:textStyle="italic"
         android:elevation="5dp"
